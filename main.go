@@ -3,10 +3,9 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	//"os"
-	//"bufio"
+	"time"
+
 	"github.com/google/uuid"
-  "time"
 )
 
 type GameState struct {
@@ -133,7 +132,7 @@ func NewGame() GameState {
 }
 
 func NewPlayer(starter bool) Player {
-  return Player{
+	return Player{
 		Id:      uuid.New().String(),
 		Score:   0,
 		CurTurn: starter,
@@ -184,7 +183,7 @@ func RandomAutoPlay(state GameState) {
 	for !state.GameOver {
 		RenderGame(state)
 		state.StartTurn(&state)
-    time.Sleep(1 * time.Second)
+		time.Sleep(1 * time.Second)
 		var move int
 		var availableMoves []int
 		if state.PlayerOne.CurTurn {
@@ -204,8 +203,8 @@ func RandomAutoPlay(state GameState) {
 		fmt.Println(len(availableMoves))
 		state.EndTurn(move, &state)
 	}
-	
-  RenderGame(state)
+
+	RenderGame(state)
 
 	if state.GameOver && state.PlayerOne.Score > state.PlayerTwo.Score {
 		fmt.Printf("Game over, Player One wins %v to %v", state.PlayerOne.Score, state.PlayerTwo.Score)
